@@ -1,0 +1,41 @@
+package com.example.autoloc.controllers;
+
+import com.example.autoloc.entities.Contrat;
+import com.example.autoloc.services.IContratService;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@AllArgsConstructor
+@RequestMapping("/contrat")
+public class ContratController {
+
+    private final IContratService contratService;
+
+    @PostMapping
+    public Contrat ajouterContrat(@RequestBody Contrat contrat) {
+        return contratService.ajouterContrat(contrat);
+    }
+
+    @PutMapping
+    public Contrat modifierContrat(@RequestBody Contrat contrat) {
+        return contratService.modifierContrat(contrat);
+    }
+
+    @GetMapping
+    public List<Contrat> consulterContrats() {
+        return contratService.ConsulterContrats();
+    }
+
+    @GetMapping("/getById/{idContrat}")
+    public Contrat getByIdContrat(@PathVariable("idContrat") Long idContrat) {
+        return contratService.consulterContratById(idContrat);
+    }
+
+    @DeleteMapping("/delete/{idContrat}")
+    public void deleteContrat(@PathVariable("idContrat") Long idContrat) {
+        contratService.supprimerContrat(idContrat);
+    }
+}
